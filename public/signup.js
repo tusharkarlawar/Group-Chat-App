@@ -19,7 +19,7 @@ button.addEventListener("click", async(e)=>{
         if(adduser.data.newUser){
             console.log("User data saved in database");
             alert(adduser.data.msg);
-            //window.location.href="./login.html";
+            window.location.href="./login.html";
         }else{
             console.log("User already exists");
         }
