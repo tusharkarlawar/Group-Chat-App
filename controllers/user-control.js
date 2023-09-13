@@ -1,5 +1,7 @@
 const user = require("../models/user"); 
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken'); 
+
 const sequelize = require("../util/database");
 require('dotenv').config();
 
@@ -49,4 +51,52 @@ exports.addUser = async(req,res,next)=>{
         await  transaction.rollback();
     }
 
+}
+
+
+function generateAccessToken(id){
+    return jwt.sign({userId: id}, process.env.SECRET_KEY) //generate token//stateless
+}
+
+exports.userLogin = async(req,res,next)=>{
+    const transaction = await sequelize.transaction();
+    try{
+        const checkEmails = req.body.email;
+        const checkPassword = req.body.password;
+        console.log(checkEmails);
+        const login = await user.findAll({
+            where:{
+                email:checkEmails
+            }
+        },{
+            transaction: transaction
+        })
+        console.log(login[0]);
+        if(login.length>0){
+            bcrypt.compare(checkPassword, login[0].password, async(err, result)=>{
+                if(err){
+                    return(res.json({msg:"dcrypting error",
+                    success:false}))
+                }
+                //console.log(result);
+                if(result===true){
+                    return(
+                        res.json({msg:"Password is correct",
+                    success:true, token: generateAccessToken(login[0].id)}
+                    ))
+                }else{
+                    return(res.json({msg:"Password is incorrect",
+                    success:false}))
+                }
+            })
+        }
+        else{
+                return(res.json("User doesnt exist"));
+            }
+            
+    }
+    catch(error){
+        res.json({Error: error});
+        await transaction.rollback();
+    }
 }
