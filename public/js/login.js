@@ -23,7 +23,9 @@ btnLogin.addEventListener("click", async (e) => {
          console.log(response.data.token);
         localStorage.setItem("token", response.data.token);
         alert(response.data.message);
-        window.location.replace(`${URL}/chat/welcomepage/welcomePage.html`);
+        //window.location.replace(`${URL}/chat/welcomepage/welcomePage.html`);
+        window.location.replace(`${URL}/chat/chat/chat.html`);
+        //window.location.href="./chat.html"; 
       }
     } else {
       alert("please provide your email and password to login❗");
