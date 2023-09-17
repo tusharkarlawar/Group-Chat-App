@@ -48,11 +48,9 @@ exports.createMessage = async (req, res) => {
 //     const messages = await Message.findAll({
 //       where: {
 //         id: { [Op.gt]: lastMessage },
-
 //         userId,
 //       },
 //     });
-
 //     res.status(200).json({
 //       status: "success",
 //       data: messages,
