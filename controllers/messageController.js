@@ -13,6 +13,7 @@ exports.createMessage = async (req, res) => {
     const file = req.file;
     let message = req.body.message;
     const { groupId } = req.body;
+    
     if (file) {
       await uploadFileS3(file);
 
