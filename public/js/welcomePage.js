@@ -15,7 +15,7 @@ const token = localStorage.getItem("token");
 // const url = "http://127.0.0.1:3000";
 const url = `http://localhost:3000`;
 
-//const socket = io(`${url}`);
+const socket = io(`${url}`);
 
 // Elements
 const formEL = document.getElementById("form-el");
@@ -38,7 +38,7 @@ btnLogout.addEventListener("click", (e) => {
   alert("Are you sure you want to logout😥");
   localStorage.clear();
   // window.location.replace("http://127.0.0.1:8080/html/login.html");
-  window.location.replace(`${url}/login/login.html`);
+  window.location.replace(`${url}/chat/login/login.html`);
 });
 
 btngroupCreate.addEventListener("click", async (e) => {
