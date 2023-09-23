@@ -2,9 +2,9 @@
 const cors = require("cors");
 const dotenv = require("dotenv");
 const express = require("express");
-const bodyParser = require("body-parser");
+//const bodyParser = require("body-parser");
 const path = require("path");
-const corn = require("cron");
+const cron = require("cron");
 
 require('dotenv').config();
 
@@ -40,7 +40,7 @@ app.use(cors());
 // );
 
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/message", messageRouter);
@@ -56,7 +56,7 @@ app.use("/chat", (req, res) => {
       "script-src https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.2/axios.min.js https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js http://localhost:3000/chat/js/signup.js http://localhost:3000/chat/js/login.js http://localhost:3000/chat/js/welcomePage.js http://localhost:3000/socket.io/socket.io.js",
       "img-src  https://img.icons8.com/color/256/weixing.png"
     )
-    .sendFile(path.join(__dirname, `public${req.url}`));
+    .sendFile(path.join(__dirname, `public${req.url}`));  
 });
 
 // For handling routes which are not defined
@@ -98,7 +98,7 @@ sequelize
   });
 
 // This runs every mid-night
-const job = new corn.CronJob("00 00 00 * * *", () => {
+const job = new cron.CronJob("00 00 00 * * *", () => {
   archiveChats();
 });
 

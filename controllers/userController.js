@@ -2,9 +2,6 @@ const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const generateAccessToken = (id) => {
-  return jwt.sign({ userId: id }, 'mykey');
-};
 
 exports.getAllUsers = async (req, res) => {
   try {
@@ -21,6 +18,8 @@ exports.getAllUsers = async (req, res) => {
     });
   }
 };
+
+
 
 exports.createUser = async (req, res) => {
   try {
@@ -47,6 +46,10 @@ exports.createUser = async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+};
+
+const generateAccessToken = (id) => {
+  return jwt.sign({ userId: id }, 'mykey');
 };
 
 exports.login = async (req, res) => {

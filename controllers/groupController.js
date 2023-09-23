@@ -36,6 +36,8 @@ exports.addUserToGroup = async (req, res) => {
     const user = await User.findOne({ where: { email } });
     const group = await Group.findOne({ where: { groupName } });
 
+    // checking admin stutus who create the group
+
     const adminStatus = await UserGroup.findOne({
       where: {
         admin: true,
@@ -58,12 +60,13 @@ exports.addUserToGroup = async (req, res) => {
         message: "user/group not found",
       });
     }
-
-    const usergroup = await UserGroup.findOne({
+    
+    //checks whether the user is already a member of the group
+    const usergroup = await UserGroup.findOne({    
       where: { userId: user.id, groupId: group.id },
     });
 
-    if (!usergroup) {
+    if (!usergroup) {                          //if not member of the group then create
       await UserGroup.create({
         userId: user.id,
         groupId: group.id,
@@ -75,7 +78,7 @@ exports.addUserToGroup = async (req, res) => {
       });
     }
 
-    await usergroup.update(
+    await usergroup.update(             //if already member of the group then updats as admin
       { admin: isAdmin },
       {
         where: {

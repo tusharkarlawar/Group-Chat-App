@@ -9,6 +9,7 @@ exports.currentUser = async (req, res, next) => {
     req.user = user;
 
     next();
+    
   } catch (err) {
     res.status(401).json({
       status: "failed",

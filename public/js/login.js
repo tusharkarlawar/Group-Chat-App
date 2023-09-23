@@ -23,7 +23,7 @@ btnLogin.addEventListener("click", async (e) => {
          console.log(response.data.token);
         localStorage.setItem("token", response.data.token);
         alert(response.data.message);
-        window.location.replace(`${URL}/welcomepage/welcomePage.html`);
+        window.location.replace(`${URL}/chat/welcomepage/welcomePage.html`);
       //   window.location.replace(`${URL}/chat/chat/chat.html`);
       //   //window.location.href="./chat.html"; 
        }
